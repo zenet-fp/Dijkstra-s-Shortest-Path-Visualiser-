@@ -50,8 +50,6 @@ class Dijkstras:
             [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-
-
         ]
 
         self.directions = {
@@ -59,7 +57,6 @@ class Dijkstras:
             "Right" : (1, 0),
             "Up" : (0, -1),
             "Down" : (0, 1)
-
         }
 
         self.canvas = tk.Canvas(self.root, height=f"{self.root_height}", width=f"{self.root_width}", bg="white" )
@@ -93,7 +90,6 @@ class Dijkstras:
         self.distance.append([(start_y, start_x), 0])
         # update the start node's distance to 0 (as this is the starting node)
         # to get to the start node from the start node is 0
-
 
         while self.queue:
 
@@ -151,7 +147,7 @@ class Dijkstras:
             path.reverse()
         # reconstruct path
         
-        print("path")
+        print("Here is the path from the start POS and maze exit:")
         print(path)
 
 
@@ -188,5 +184,3 @@ if __name__ == "__main__":
     run_maze.dijkstras_shortest_path()
     run_maze.draw_grid()
     root.mainloop()
-
-
