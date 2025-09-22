@@ -52,6 +52,8 @@ class Dijkstras:
 
         ]
 
+        # --------------------------------------------------------------------------------------------------
+        
         self.directions = {
             "Left" : (-1, 0),
             "Right" : (1, 0),
@@ -77,6 +79,7 @@ class Dijkstras:
 
         # initialise all nodes as having 'infinity' edge cost
 
+        # --------------------------------------------------------------------------------------------------
 
     def dijkstras_shortest_path(self):
         # start and end POS are hardcoded but can be randomly chosen too
@@ -134,6 +137,8 @@ class Dijkstras:
                     self.queue.append((new_distance, (ne_y, ne_x)))
                     # add the neighbour to the queue
 
+        # --------------------------------------------------------------------------------------------------
+        
         path = []
         node = (end_y, end_x)
         if node in self.shortest_path:
@@ -150,6 +155,8 @@ class Dijkstras:
         print("Here is the path from the start POS and maze exit:")
         print(path)
 
+        # --------------------------------------------------------------------------------------------------
+
 
     def draw_grid(self):
         for y in range(self.rows):
@@ -157,7 +164,7 @@ class Dijkstras:
                 colour = "black" if self.grid[y][x] == 0 else "white"
                 if self.grid[y][x] == 7:
                     colour = "green"
-                # if the path is a 7, then make it green to show the path
+                # if the path is a 7, then make it green to show the path to the maze exit
 
                 self.canvas.create_rectangle(x * self.pixel_p_cell, y * self.pixel_p_cell,
 
@@ -177,6 +184,8 @@ class Dijkstras:
                                                  y * self.pixel_p_cell + self.pixel_p_cell,
                                                  fill="blue", outline="")
                 # mark the start and end POS as different colours
+
+        # --------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     root = tk.Tk()
