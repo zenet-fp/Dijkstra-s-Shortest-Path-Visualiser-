@@ -51,7 +51,9 @@ class Dijkstras:
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
         ]
-
+        # currently the maze is pre-made with 0s and 1s
+        # altertively, I would use a maze gen algorithm for this 
+        
         # --------------------------------------------------------------------------------------------------
         
         self.directions = {
@@ -83,6 +85,7 @@ class Dijkstras:
 
     def dijkstras_shortest_path(self):
         # start and end POS are hardcoded but can be randomly chosen too
+        # make sure the start and end POS are a walkable path and within bounds
         start_y, start_x = 15, 15
         end_y, end_x = 1, 31,
 
@@ -138,6 +141,8 @@ class Dijkstras:
                     # add the neighbour to the queue
 
         # --------------------------------------------------------------------------------------------------
+
+        # reconstruct the path based on the grid 
         
         path = []
         node = (end_y, end_x)
@@ -150,10 +155,10 @@ class Dijkstras:
                 # mark the path to goal as a 7: this will be useful in the draw_grid method
             path.append((start_y, start_x))
             path.reverse()
-        # reconstruct path
         
         print("Here is the path from the start POS and maze exit:")
         print(path)
+        # print the path for the user
 
         # --------------------------------------------------------------------------------------------------
 
