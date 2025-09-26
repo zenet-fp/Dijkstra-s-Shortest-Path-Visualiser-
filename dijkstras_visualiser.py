@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 # coded by Zenet
 
 class Dijkstras:
@@ -52,18 +53,18 @@ class Dijkstras:
 
         ]
         # currently the maze is pre-made with 0s and 1s
-        # altertively, I would use a maze gen algorithm for this 
-        
+        # altertively, I would use a maze gen algorithm for this
+
         # --------------------------------------------------------------------------------------------------
-        
+
         self.directions = {
-            "Left" : (-1, 0),
-            "Right" : (1, 0),
-            "Up" : (0, -1),
-            "Down" : (0, 1)
+            "Left": (-1, 0),
+            "Right": (1, 0),
+            "Up": (0, -1),
+            "Down": (0, 1)
         }
 
-        self.canvas = tk.Canvas(self.root, height=f"{self.root_height}", width=f"{self.root_width}", bg="white" )
+        self.canvas = tk.Canvas(self.root, height=f"{self.root_height}", width=f"{self.root_width}", bg="white")
         self.canvas.pack()
 
         self.queue = []
@@ -86,14 +87,14 @@ class Dijkstras:
     def dijkstras_shortest_path(self):
         # start and end POS are hardcoded but can be randomly chosen too
         # make sure the start and end POS are a walkable path and within bounds
-        start_y, start_x = 15, 15
-        end_y, end_x = 1, 31,
+        self.start_y, self.start_x = 15, 15
+        self.end_y, self.end_x = 1, 31,
 
-        self.queue.append( ( 0, (start_y, start_x) ) )
-        self.visited.append((start_y, start_x))
+        self.queue.append((0, (self.start_y, self.start_x)))
+        self.visited.append((self.start_y, self.start_x))
 
-        self.distance.remove([(start_y, start_x), float('inf')])
-        self.distance.append([(start_y, start_x), 0])
+        self.distance.remove([(self.start_y, self.start_x), float('inf')])
+        self.distance.append([(self.start_y, self.start_x), 0])
         # update the start node's distance to 0 (as this is the starting node)
         # to get to the start node from the start node is 0
 
@@ -106,18 +107,19 @@ class Dijkstras:
 
             self.visited.append((smallest_node[0]))
             # mark it as visited
-            
+
             current_distance = smallest_node[1]
             # get the current distance of the chosen node
 
-            if smallest_node[0] == (end_y, end_x):
+            if smallest_node[0] == (self.end_y, self.end_x):
                 # if this node is the end node: end the loop -> else continue
                 break
 
             for y, x in self.directions.values():
                 ne_y, ne_x = smallest_node[0][0] + y, smallest_node[0][1] + x
 
-                if 0 <= ne_y < self.rows and 0 <= ne_x < self.columns and (ne_y, ne_x) not in self.visited and self.grid[ne_y][ne_x] == 1:
+                if 0 <= ne_y < self.rows and 0 <= ne_x < self.columns and (ne_y, ne_x) not in self.visited and \
+                        self.grid[ne_y][ne_x] == 1:
                     # check all valid neighbours of the node
                     new_distance = current_distance + 1
                     # increment the current distance by 1
@@ -127,7 +129,7 @@ class Dijkstras:
                     for value in self.distance:
                         if value[0] == (ne_y, ne_x):
                             check_distance = value[1]
-                    # update the neighbours distance 
+                    # update the neighbours distance
 
                     if new_distance < check_distance:
                         for value in self.distance:
@@ -142,26 +144,25 @@ class Dijkstras:
 
         # --------------------------------------------------------------------------------------------------
 
-        # reconstruct the path based on the grid 
-        
+        # reconstruct the path based on the grid
+
         path = []
-        node = (end_y, end_x)
+        node = (self.end_y, self.end_x)
         if node in self.shortest_path:
-            while node != (start_y, start_x):
+            while node != (self.start_y, self.start_x):
                 path.append(node)
                 node = self.shortest_path[node]
                 y, x = node
                 self.grid[y][x] = 7
                 # mark the path to goal as a 7: this will be useful in the draw_grid method
-            path.append((start_y, start_x))
+            path.append((self.start_y, self.start_x))
             path.reverse()
-        
+
         print("Here is the path from the start POS and maze exit:")
         print(path)
         # print the path for the user
 
         # --------------------------------------------------------------------------------------------------
-
 
     def draw_grid(self):
         for y in range(self.rows):
@@ -173,16 +174,17 @@ class Dijkstras:
 
                 self.canvas.create_rectangle(x * self.pixel_p_cell, y * self.pixel_p_cell,
 
-                x * self.pixel_p_cell + self.pixel_p_cell , y * self.pixel_p_cell + self.pixel_p_cell,
-                fill=colour, outline="")
+                                             x * self.pixel_p_cell + self.pixel_p_cell,
+                                             y * self.pixel_p_cell + self.pixel_p_cell,
+                                             fill=colour, outline="")
 
-                if y == 15 and x == 15:
+                if y == self.start_y and x == self.start_x:
                     self.canvas.create_rectangle(x * self.pixel_p_cell, y * self.pixel_p_cell,
 
                                                  x * self.pixel_p_cell + self.pixel_p_cell,
                                                  y * self.pixel_p_cell + self.pixel_p_cell,
                                                  fill="red", outline="")
-                if y == 1 and x == 31:
+                if y == self.end_y and x == self.end_x:
                     self.canvas.create_rectangle(x * self.pixel_p_cell, y * self.pixel_p_cell,
 
                                                  x * self.pixel_p_cell + self.pixel_p_cell,
@@ -191,6 +193,7 @@ class Dijkstras:
                 # mark the start and end POS as different colours
 
         # --------------------------------------------------------------------------------------------------
+
 
 if __name__ == "__main__":
     root = tk.Tk()
